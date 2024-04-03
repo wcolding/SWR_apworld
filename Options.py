@@ -45,6 +45,10 @@ class AdditionalAIMultiplier(Range):
     range_end = 5000
     default = 1000
 
+class EnableMultiplierControl(DefaultOnToggle):
+    """Allows the player to change the additional AI multiplier in-game"""
+    display_name = "Enable Multiplier Control"
+
 class DisablePartDamage(DefaultOnToggle):
     """Prevents parts from being damaged and removes pit droids from the item pool. Extra money will be added to the pool."""
     display_name = "Disable Part Damage"
@@ -59,4 +63,5 @@ class SWROptions(PerGameCommonOptions):
     disable_part_damage: DisablePartDamage
     ai_scaling: AIScaling
     additional_ai_multiplier: AdditionalAIMultiplier
+    enable_multiplier_control: EnableMultiplierControl
     deathlink: DeathLink

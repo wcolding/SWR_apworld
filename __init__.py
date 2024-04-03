@@ -72,6 +72,7 @@ class SWRWorld(World):
             "DisablePartDamage": self.options.disable_part_damage.value,
             "AIScaling": self.options.ai_scaling.value,
             "AdditionalAIMultiplier": self.options.additional_ai_multiplier.value,
+            "EnableMultiplierControl": self.options.enable_multiplier_control.value,
             "DeathLink": self.options.deathlink.value
         }
     
