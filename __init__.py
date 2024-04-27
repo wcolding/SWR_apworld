@@ -73,6 +73,7 @@ class SWRWorld(World):
             "AIScaling": self.options.ai_scaling.value,
             "AdditionalAIMultiplier": self.options.additional_ai_multiplier.value,
             "EnableMultiplierControl": self.options.enable_multiplier_control.value,
+            "OneLapMode": self.options.one_lap_mode.value,
             "DeathLink": self.options.deathlink.value
         }
     

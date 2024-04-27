@@ -53,6 +53,10 @@ class DisablePartDamage(DefaultOnToggle):
     """Prevents parts from being damaged and removes pit droids from the item pool. Extra money will be added to the pool."""
     display_name = "Disable Part Damage"
 
+class OneLapMode(Toggle):
+    """Races only require 1 lap to complete"""
+    display_name = "1-Lap Mode"
+
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
@@ -64,4 +68,5 @@ class SWROptions(PerGameCommonOptions):
     ai_scaling: AIScaling
     additional_ai_multiplier: AdditionalAIMultiplier
     enable_multiplier_control: EnableMultiplierControl
+    one_lap_mode: OneLapMode
     deathlink: DeathLink
