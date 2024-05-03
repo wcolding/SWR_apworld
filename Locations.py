@@ -16,65 +16,65 @@ class SWRLocationData:
         self.required_races = required_races
 
 watto_0_races = {
-    "Watto's Shop - Traction Upgrade 1     (0 races)":     SWRLocationData(0, 0),
-    "Watto's Shop - Turning Upgrade 1      (0 races)":      SWRLocationData(5, 0),
-    "Watto's Shop - Acceleration Upgrade 1 (0 races)": SWRLocationData(10, 0),
-    "Watto's Shop - Top Speed Upgrade 1    (0 races)":    SWRLocationData(15, 0),
-    "Watto's Shop - Air Brake Upgrade 1    (0 races)":    SWRLocationData(20, 0),
-    "Watto's Shop - Cooling Upgrade 1      (0 races)":      SWRLocationData(25, 0),
-    "Watto's Shop - Repair Upgrade 1       (0 races)":       SWRLocationData(30, 0),
+    "Watto's Shop - Traction 1 (0 races)":     SWRLocationData(0, 0),
+    "Watto's Shop - Turning 1 (0 races)":      SWRLocationData(5, 0),
+    "Watto's Shop - Acceleration 1 (0 races)": SWRLocationData(10, 0),
+    "Watto's Shop - Top Speed 1 (0 races)":    SWRLocationData(15, 0),
+    "Watto's Shop - Air Brake 1 (0 races)":    SWRLocationData(20, 0),
+    "Watto's Shop - Cooling 1 (0 races)":      SWRLocationData(25, 0),
+    "Watto's Shop - Repair 1 (0 races)":       SWRLocationData(30, 0),
 }
 
 watto_2_races = {
-    "Watto's Shop - Traction Upgrade 2     (2 races)":     SWRLocationData(1, 2),
-    "Watto's Shop - Turning Upgrade 2      (2 races)":      SWRLocationData(6, 2),
-    "Watto's Shop - Top Speed Upgrade 2    (2 races)":    SWRLocationData(16, 2),
-    "Watto's Shop - Repair Upgrade 2       (2 races)":       SWRLocationData(31, 2),
+    "Watto's Shop - Traction 2 (2 races)":     SWRLocationData(1, 2),
+    "Watto's Shop - Turning 2 (2 races)":      SWRLocationData(6, 2),
+    "Watto's Shop - Top Speed 2 (2 races)":    SWRLocationData(16, 2),
+    "Watto's Shop - Repair 2 (2 races)":       SWRLocationData(31, 2),
 }
 
 watto_4_races = {
-    "Watto's Shop - Acceleration Upgrade 2 (4 races)": SWRLocationData(11, 4),
-    "Watto's Shop - Air Brake Upgrade 2    (4 races)":    SWRLocationData(21, 4),
-    "Watto's Shop - Repair Upgrade 3       (4 races)":       SWRLocationData(32, 4),
+    "Watto's Shop - Acceleration 2 (4 races)": SWRLocationData(11, 4),
+    "Watto's Shop - Air Brake 2 (4 races)":    SWRLocationData(21, 4),
+    "Watto's Shop - Repair 3 (4 races)":       SWRLocationData(32, 4),
 }
 
 watto_6_races = {
-    "Watto's Shop - Traction Upgrade 3     (6 races)":     SWRLocationData(2, 6),
-    "Watto's Shop - Turning Upgrade 3      (6 races)":      SWRLocationData(7, 6),
-    "Watto's Shop - Air Brake Upgrade 3    (6 races)":    SWRLocationData(22, 6),
-    "Watto's Shop - Cooling Upgrade 2      (6 races)":      SWRLocationData(26, 6),
+    "Watto's Shop - Traction 3 (6 races)":     SWRLocationData(2, 6),
+    "Watto's Shop - Turning 3 (6 races)":      SWRLocationData(7, 6),
+    "Watto's Shop - Air Brake 3 (6 races)":    SWRLocationData(22, 6),
+    "Watto's Shop - Cooling 2 (6 races)":      SWRLocationData(26, 6),
 }
 
 watto_8_races = {
-    "Watto's Shop - Acceleration Upgrade 3 (8 races)": SWRLocationData(12, 8),
-    "Watto's Shop - Top Speed Upgrade 3    (8 races)":    SWRLocationData(17, 8),
-    "Watto's Shop - Cooling Upgrade 3      (8 races)":      SWRLocationData(27, 8),
-    "Watto's Shop - Repair Upgrade 4       (8 races)":       SWRLocationData(33, 8),
+    "Watto's Shop - Acceleration 3 (8 races)": SWRLocationData(12, 8),
+    "Watto's Shop - Top Speed 3 (8 races)":    SWRLocationData(17, 8),
+    "Watto's Shop - Cooling 3 (8 races)":      SWRLocationData(27, 8),
+    "Watto's Shop - Repair 4 (8 races)":       SWRLocationData(33, 8),
 }
 
 watto_10_races = {
-    "Watto's Shop - Traction Upgrade 4     (10 races)":     SWRLocationData(3, 10),
-    "Watto's Shop - Acceleration Upgrade 4 (10 races)": SWRLocationData(13, 10),
-    "Watto's Shop - Air Brake Upgrade 4    (10 races)":    SWRLocationData(23, 10),
-    "Watto's Shop - Cooling Upgrade 4      (10 races)":      SWRLocationData(28, 10),
+    "Watto's Shop - Traction 4 (10 races)":     SWRLocationData(3, 10),
+    "Watto's Shop - Acceleration 4 (10 races)": SWRLocationData(13, 10),
+    "Watto's Shop - Air Brake 4 (10 races)":    SWRLocationData(23, 10),
+    "Watto's Shop - Cooling 4 (10 races)":      SWRLocationData(28, 10),
 }
 
 watto_12_races = {
-    "Watto's Shop - Turning Upgrade 4      (12 races)":      SWRLocationData(8, 12),
-    "Watto's Shop - Acceleration Upgrade 5 (12 races)": SWRLocationData(14, 12),
-    "Watto's Shop - Top Speed Upgrade 4    (12 races)":    SWRLocationData(18, 12),
-    "Watto's Shop - Repair Upgrade 5       (12 races)":       SWRLocationData(34, 12),
+    "Watto's Shop - Turning 4 (12 races)":      SWRLocationData(8, 12),
+    "Watto's Shop - Acceleration 5 (12 races)": SWRLocationData(14, 12),
+    "Watto's Shop - Top Speed 4 (12 races)":    SWRLocationData(18, 12),
+    "Watto's Shop - Repair 5 (12 races)":       SWRLocationData(34, 12),
 }
 
 watto_14_races = {
-    "Watto's Shop - Traction Upgrade 5     (14 races)":     SWRLocationData(4, 14),
-    "Watto's Shop - Air Brake Upgrade 5    (14 races)":    SWRLocationData(24, 14),
-    "Watto's Shop - Cooling Upgrade 5      (14 races)":      SWRLocationData(29, 14),
+    "Watto's Shop - Traction 5 (14 races)":     SWRLocationData(4, 14),
+    "Watto's Shop - Air Brake 5 (14 races)":    SWRLocationData(24, 14),
+    "Watto's Shop - Cooling 5 (14 races)":      SWRLocationData(29, 14),
 }
 
 watto_16_races = {
-    "Watto's Shop - Turning Upgrade 5      (16 races)":      SWRLocationData(9, 16),
-    "Watto's Shop - Top Speed Upgrade 5    (16 races)":    SWRLocationData(19, 16),
+    "Watto's Shop - Turning 5 (16 races)":      SWRLocationData(9, 16),
+    "Watto's Shop - Top Speed 5 (16 races)":    SWRLocationData(19, 16),
 }
 
 wattos_shop_table = {
