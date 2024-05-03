@@ -9,7 +9,10 @@ class ProgressiveCircuits(Toggle):
     display_name = "Progressive Circuits"
     
 class EnableInvitationalCircuitPass(Toggle):
-    """Affects how Invitational Circuit courses unlock. If enabled, Invitational is unlocked with a Circuit Pass item like the others. Otherwise, each Invitational course requires first place in all courses of a corresponding circuit."""
+    """Affects how Invitational Circuit courses unlock
+    If enabled, Invitational is unlocked with a Circuit Pass item like the others
+    Otherwise, the first 3 courses are unlocked by taking first place in the other circuits, while the last is unlocked by getting first on all races
+    """
     display_name = "Invitational Circuit Pass"
 
 class StartingRacers(Choice):
@@ -19,7 +22,9 @@ class StartingRacers(Choice):
     option_random_range = 1
 
 class StartingRacersCount(Range):
-    """How many random racers to start with. This option is only used if Starting Racers is set to 'random_range'"""
+    """How many random racers to start with
+    This option is only used if Starting Racers is set to 'random_range'
+    """
     display_name = "Number of Starting Racers"
     range_start = 1
     range_end = 23
@@ -50,7 +55,9 @@ class EnableMultiplierControl(DefaultOnToggle):
     display_name = "Enable Multiplier Control"
 
 class DisablePartDamage(DefaultOnToggle):
-    """Prevents parts from being damaged and removes pit droids from the item pool. Extra money will be added to the pool."""
+    """Prevents parts from being damaged and removes pit droids from the item pool
+    Extra money will be added to the pool
+    """
     display_name = "Disable Part Damage"
 
 class OneLapMode(Toggle):
