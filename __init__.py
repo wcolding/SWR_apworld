@@ -23,6 +23,33 @@ class SWRWorld(World):
 
     item_name_to_id = get_item_name_to_id()
     location_name_to_id = get_location_name_to_id()
+    
+    item_name_groups = {
+        "traction": {
+            "Progressive Traction", "R-60 Repulsorgrip", "R-80 Repulsorgrip", "R-100 Repulsorgrip", "R-300 Repulsorgrip", "R-600 Repulsorgrip"
+        },
+        "turning": {
+            "Progressive Turning", "Control Shift Plate", "Control Vectro Jet",  "Control Coupling", "Control Nozzle", "Control Stabilizer"
+        },
+        "acceleration": {
+            "Progressive Acceleration", "44 PCX Injector", "Dual 32PCX Injector", "Quad 32PCX Injector", "Quad 44PCX Injector", "Mag-6 Injector"
+        },
+        "top speed": {
+            "Progressive Top Speed", "Plug3 Thrust Coil", "Plug5 Thrust Coil", "Plug8 Thrust Coil", "Block5 Thrust Coil", "Block6 Thrust Coil"
+        },
+        "air brake": {
+            "Progressive Air Brake", "Mark III Air Brake", "Mark IV Air Brake", "Mark V Air Brake", "Tri-Jet Air Brake", "Quadrijet Air Brake"
+        },
+        "cooling": {
+            "Progressive Cooling", "Stack-3 Radiator", "Stack-6 Radiator", "Rod Coolant Pump", "Dual Coolant Pump", "Turbo Coolant Pump"
+        },
+        "repair": {
+            "Progressive Repair", "Dual Power Cell", "Quad Power Cell", "Cluster Power Plug", "Rotary Power Plug", "Cluster2 Power Plug"
+        },
+        "semi-pro": {"Semi-Pro Circuit Pass"},
+        "galactic": {"Galactic Circuit Pass"},
+        "invitational": {"Invitational Circuit Pass"}
+    }
 
     racers_pool = racers_table
     starting_racers_flag = 0
