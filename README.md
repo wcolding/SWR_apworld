@@ -2,7 +2,7 @@
 
 ### Now ***this*** is podracing!
 
-This is a randomizer for **S**tar **W**ars Episode I: **R**acer for the PC. It uses Archipelago (a cross-game randomizer) to shuffle pod parts, race rewards, characters, and the track order. It is to be used in conjunction with the [SWR AP Client](https://github.com/wcolding/SWR_AP_Client/releases).
+This is a randomizer for **S**tar **W**ars Episode I: **R**acer for the PC. It uses Archipelago (a cross-game randomizer) to shuffle pod parts, race rewards, characters, and the track order. It is to be used in conjunction with the [SWR AP Client](https://github.com/wcolding/SWR_AP_Client).
 
 **The goal is to complete all 25 courses.** The circuits are locked by new items called "Circuit Passes". For example, to race on the Semi-Pro Circuit courses, you will need the `Semi-Pro Circuit Pass` (or `Progressive Circuit Pass` depending on your settings). These passes may be found in the shops or as rewards for completing races.
 
