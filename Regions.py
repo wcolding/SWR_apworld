@@ -80,7 +80,7 @@ def create_region_with_rule(world: World, name: str, location_names: list, rule:
     world.multiworld.regions.append(new_reg)
 
     menu_region = world.multiworld.get_region("Menu", world.player)
-    entrance = Entrance(world.player, '', menu_region)
+    entrance = Entrance(world.player, name + "_ent", menu_region)
     entrance.access_rule = rule
     menu_region.exits.append(entrance)
     entrance.connect(new_reg)
