@@ -101,6 +101,7 @@ class SWRWorld(World):
             "AdditionalAIMultiplier": self.options.additional_ai_multiplier.value,
             "EnableMultiplierControl": self.options.enable_multiplier_control.value,
             "OneLapMode": self.options.one_lap_mode.value,
+            "AutoHintShop": self.options.auto_hint_shop.value,
             "DeathLink": self.options.deathlink.value
         }
     

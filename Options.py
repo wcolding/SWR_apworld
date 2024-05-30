@@ -69,6 +69,10 @@ class OneLapMode(Toggle):
     """Races only require 1 lap to complete"""
     display_name = "1-Lap Mode"
 
+class AutoHintShop(DefaultOnToggle):
+    """Automatically hints shop items as they unlock"""
+    display_name = "Auto-Hint Shop"
+
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
@@ -81,4 +85,5 @@ class SWROptions(PerGameCommonOptions):
     additional_ai_multiplier: AdditionalAIMultiplier
     enable_multiplier_control: EnableMultiplierControl
     one_lap_mode: OneLapMode
+    auto_hint_shop: AutoHintShop
     deathlink: DeathLink
