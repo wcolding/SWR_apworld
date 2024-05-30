@@ -4,19 +4,20 @@
 
 This is a randomizer for **S**tar **W**ars Episode I: **R**acer for the PC. It uses Archipelago (a cross-game randomizer) to shuffle pod parts, race rewards, characters, and the track order. It is to be used in conjunction with the [SWR AP Client](https://github.com/wcolding/SWR_AP_Client).
 
-**The goal is to complete all 25 courses.** The circuits are locked by new items called "Circuit Passes". For example, to race on the Semi-Pro Circuit courses, you will need the `Semi-Pro Circuit Pass` (or `Progressive Circuit Pass` depending on your settings). These passes may be found in the shops or as rewards for completing races.
+**The goal is to complete all 25 courses.** Access to the courses is gated by new items called "Circuit Passes" or "Course Unlocks", depending on your settings. These items are shuffled into the pool of items that span your world and any others you generate with.
 
-Checks are in the following places:
+#### Checks are in the following places:
 * Watto's Shop
 * Pit Droid Shop
 * On completing races
 * On getting first place on select tracks (in vanilla this is how racers are unlocked)
 
-Items you can get include:
-* Pod parts (can be progressive)
+#### Items you can get include:
+* Pod Parts (can be progressive)
 * Racers
-* Circuit passes
-* Pit droids
+* Circuit Passes
+* Course Unlocks
+* Pit Droids
 * Money
 
 The courses themselves pay out at "Fair" rates and are repeatable to farm money. However, money is mixed into the pool to supplement for the other payout settings. This way, you can get money and checks at the same time to keep your playthrough moving.
