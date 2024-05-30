@@ -5,15 +5,20 @@ class ProgressiveParts(Toggle):
     display_name = "Progressive Parts"
 
 class ProgressiveCircuits(Toggle):
-    """Access to circuits will be in the regular order"""
+    """Access to circuits will be in the regular order
+    Only applies when using Circuit Pass or Circuit Pass Invitational unlock modes"""
     display_name = "Progressive Circuits"
     
-class EnableInvitationalCircuitPass(Toggle):
-    """Affects how Invitational Circuit courses unlock
-    If enabled, Invitational is unlocked with a Circuit Pass item like the others
-    Otherwise, the first 3 courses are unlocked by taking first place in the other circuits, while the last is unlocked by getting first on all races
+class CourseUnlockMode(Choice):
+    """Sets how courses should unlock
+    Circuit Pass: Semi-pro and Galactic Circuits are accessed by items called 'circuit passes'. Courses unlock normally as you beat the previous course
+    Circuit Pass Invitational: Same as Circuit Pass but with the addition of the Invitational Circuit
+    Shuffle: Course unlocks are shuffled
     """
-    display_name = "Invitational Circuit Pass"
+    display_name = "Course Unlock Mode"
+    option_circuit_pass = 0
+    option_circuit_pass_invitational = 1
+    option_shuffle = 2
 
 class StartingRacers(Choice):
     """Change which racers are available to use at the beginning"""
@@ -67,8 +72,8 @@ class OneLapMode(Toggle):
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
+    course_unlock_mode: CourseUnlockMode
     progressive_circuits: ProgressiveCircuits
-    invitational_circuit_pass: EnableInvitationalCircuitPass
     starting_racers: StartingRacers
     starting_racers_count: StartingRacersCount
     disable_part_damage: DisablePartDamage

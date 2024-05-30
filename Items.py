@@ -137,12 +137,20 @@ money_item_table = {
     "3500 Truguts":              SWRItemData(77, ItemClassification.useful, 2),
 }
 
+course_unlocks_item_table = {
+    "Amateur Course Unlock":      SWRItemData(78, ItemClassification.progression, 6),
+    "Semi-Pro Course Unlock":     SWRItemData(79, ItemClassification.progression, 7),
+    "Galactic Course Unlock":     SWRItemData(80, ItemClassification.progression, 7),
+    "Invitational Course Unlock": SWRItemData(81, ItemClassification.progression, 4),
+}
+
 full_item_table = {
     **pod_progressive_upgrades_table,
     **pod_upgrades_table,
     **racers_table,
     **misc_item_table,
-    **money_item_table
+    **money_item_table,
+    **course_unlocks_item_table
 }
 
 def get_item_name_to_id():

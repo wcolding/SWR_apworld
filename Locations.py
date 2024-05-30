@@ -2,6 +2,10 @@ from BaseClasses import Location
 
 SWR_LOC_OFFSET = 113800100
 
+AMATEUR_CIRCUIT = 0
+SEMIPRO_CIRCUIT = 1
+GALACTIC_CIRCUIT = 2
+INVITATIONAL_CIRCUIT = 3
 
 class SWRLocation(Location):
     game: str = "Star Wars Episode I Racer"
@@ -98,35 +102,48 @@ pit_droid_shop_table = {
     "Pit Droid Shop - 3rd Droid": SWRLocationData(44),
 }
 
-course_clears_table = {
+amateur_course_clears_table = {
     "Amateur Race 1":      SWRLocationData(45),
     "Amateur Race 2":      SWRLocationData(46),
     "Amateur Race 3":      SWRLocationData(47),
     "Amateur Race 4":      SWRLocationData(48),
     "Amateur Race 5":      SWRLocationData(49),
     "Amateur Race 6":      SWRLocationData(50),
-    "Amateur Race 7":      SWRLocationData(51),
+    "Amateur Race 7":      SWRLocationData(51)
+}
 
+semipro_course_clears_table = {
     "Semi-Pro Race 1":     SWRLocationData(52),
     "Semi-Pro Race 2":     SWRLocationData(53),
     "Semi-Pro Race 3":     SWRLocationData(54),
     "Semi-Pro Race 4":     SWRLocationData(55),
     "Semi-Pro Race 5":     SWRLocationData(56),
     "Semi-Pro Race 6":     SWRLocationData(57),
-    "Semi-Pro Race 7":     SWRLocationData(58),
+    "Semi-Pro Race 7":     SWRLocationData(58)
+}
 
+galactic_course_clears_table = {
     "Galactic Race 1":     SWRLocationData(59),
     "Galactic Race 2":     SWRLocationData(60),
     "Galactic Race 3":     SWRLocationData(61),
     "Galactic Race 4":     SWRLocationData(62),
     "Galactic Race 5":     SWRLocationData(63),
     "Galactic Race 6":     SWRLocationData(64),
-    "Galactic Race 7":     SWRLocationData(65),
+    "Galactic Race 7":     SWRLocationData(65)
+}
 
+invitational_course_clears_table = {
     "Invitational Race 1": SWRLocationData(66),
     "Invitational Race 2": SWRLocationData(67),
     "Invitational Race 3": SWRLocationData(68),
-    "Invitational Race 4": SWRLocationData(69),
+    "Invitational Race 4": SWRLocationData(69)
+}
+
+course_clears_table = {
+    **amateur_course_clears_table,
+    **semipro_course_clears_table,
+    **galactic_course_clears_table,
+    **invitational_course_clears_table
 }
 
 racer_unlocks_table = {
@@ -184,11 +201,66 @@ courses_table = {
     "Inferno":                0x0F
 }
 
+amateur_course_unlocks_table = {
+    "Amateur Race 1 - Course Unlock": SWRLocationData(87),
+    "Amateur Race 2 - Course Unlock": SWRLocationData(88),
+    "Amateur Race 3 - Course Unlock": SWRLocationData(89),
+    "Amateur Race 4 - Course Unlock": SWRLocationData(90),
+    "Amateur Race 5 - Course Unlock": SWRLocationData(91),
+    "Amateur Race 6 - Course Unlock": SWRLocationData(92)
+}
+
+semipro_course_unlocks_table = {
+    "Semi-Pro Race 1 - Course Unlock": SWRLocationData(93),
+    "Semi-Pro Race 2 - Course Unlock": SWRLocationData(94),
+    "Semi-Pro Race 3 - Course Unlock": SWRLocationData(95),
+    "Semi-Pro Race 4 - Course Unlock": SWRLocationData(96),
+    "Semi-Pro Race 5 - Course Unlock": SWRLocationData(97),
+    "Semi-Pro Race 6 - Course Unlock": SWRLocationData(98)
+}
+
+galactic_course_unlocks_table = {
+    "Galactic Race 1 - Course Unlock": SWRLocationData(99),
+    "Galactic Race 2 - Course Unlock": SWRLocationData(100),
+    "Galactic Race 3 - Course Unlock": SWRLocationData(101),
+    "Galactic Race 4 - Course Unlock": SWRLocationData(102),
+    "Galactic Race 5 - Course Unlock": SWRLocationData(103),
+    "Galactic Race 6 - Course Unlock": SWRLocationData(104)
+}
+
+invitational_course_unlocks_table = {
+    "Invitational Race 1 - Course Unlock": SWRLocationData(105),
+    "Invitational Race 2 - Course Unlock": SWRLocationData(106),
+    "Invitational Race 3 - Course Unlock": SWRLocationData(107)
+}
+
+course_unlocks_loc_table = {
+    **amateur_course_unlocks_table,
+    **semipro_course_unlocks_table,
+    **galactic_course_unlocks_table,
+    **invitational_course_unlocks_table
+}
+
+class SWRCircuitData():
+     def __init__(self, start: int, end: int, clears_table: dict[str, SWRLocation], unlocks_table: dict[str, SWRLocation]):
+         self.start = start
+         self.end = end
+         self.clears_table = clears_table
+         self.unlocks_table = unlocks_table
+
+circuit_data_map = {
+    AMATEUR_CIRCUIT: SWRCircuitData(0, 7, amateur_course_clears_table, amateur_course_unlocks_table),
+    SEMIPRO_CIRCUIT: SWRCircuitData(7, 14, semipro_course_clears_table, semipro_course_unlocks_table),
+    GALACTIC_CIRCUIT: SWRCircuitData(14, 21, galactic_course_clears_table, galactic_course_unlocks_table),
+    INVITATIONAL_CIRCUIT: SWRCircuitData(21, 25, invitational_course_clears_table, invitational_course_unlocks_table),
+}
+
 full_location_table = {
     **wattos_shop_table,
     **pit_droid_shop_table,
     **course_clears_table,
-    **racer_unlocks_table
+    **racer_unlocks_table,
+    **course_unlocks_loc_table
 }
 
 def get_location_name_to_id():

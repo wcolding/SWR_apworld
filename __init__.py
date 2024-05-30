@@ -94,8 +94,8 @@ class SWRWorld(World):
             "StartingRacers": self.starting_racers_flag,
             "Courses": self.randomized_courses,
             "ProgressiveParts": self.options.progressive_parts.value,
+            "CourseUnlockMode": self.options.course_unlock_mode.value,
             "ProgressiveCircuits": self.options.progressive_circuits.value,
-            "EnableInvitationalCircuitPass": self.options.invitational_circuit_pass.value,
             "DisablePartDamage": self.options.disable_part_damage.value,
             "AIScaling": self.options.ai_scaling.value,
             "AdditionalAIMultiplier": self.options.additional_ai_multiplier.value,
@@ -134,16 +134,29 @@ class SWRWorld(World):
             self.append_items_from_data("Pit Droid")
 
         # Circuits
-        if self.options.progressive_circuits:
-            if self.options.invitational_circuit_pass:
+        if self.options.course_unlock_mode.value == 0:
+            # Circuit Pass
+            if self.options.progressive_circuits:
+                self.append_items_from_data("Progressive Circuit Pass", 2)
+            else:
+                self.append_items_from_data("Semi-Pro Circuit Pass")
+                self.append_items_from_data("Galactic Circuit Pass")
+
+        if self.options.course_unlock_mode.value == 1:
+            # Circuit Pass Invitational
+            if self.options.progressive_circuits:
                 self.append_items_from_data("Progressive Circuit Pass")
             else:
-                self.append_items_from_data("Progressive Circuit Pass", 2)
-        else:
-            self.append_items_from_data("Semi-Pro Circuit Pass")
-            self.append_items_from_data("Galactic Circuit Pass")
-            if self.options.invitational_circuit_pass:
+                self.append_items_from_data("Semi-Pro Circuit Pass")
+                self.append_items_from_data("Galactic Circuit Pass")
                 self.append_items_from_data("Invitational Circuit Pass")
+
+        if self.options.course_unlock_mode.value == 2:
+            # Shuffle
+            self.append_items_from_data("Amateur Course Unlock", 6)
+            self.append_items_from_data("Semi-Pro Course Unlock")
+            self.append_items_from_data("Galactic Course Unlock")
+            self.append_items_from_data("Invitational Course Unlock")
         
         # Racers
         for racer in self.racers_pool:
