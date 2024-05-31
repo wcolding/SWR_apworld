@@ -91,6 +91,7 @@ class SWRWorld(World):
         # Set course data and spoiler log info
         for i in range(0, len(self.randomized_course_data)):
             current_course = self.randomized_course_data[i]
+            self.randomized_course_names += [current_course.name]
             if current_course.mirrored:
                 current_course.id |= 0x80
                 current_course.name += " (Mirrored)"
