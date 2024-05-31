@@ -46,9 +46,10 @@ class SWRWorld(World):
         "repair": {
             "Progressive Repair", "Dual Power Cell", "Quad Power Cell", "Cluster Power Plug", "Rotary Power Plug", "Cluster2 Power Plug"
         },
-        "semi-pro": {"Semi-Pro Circuit Pass"},
-        "galactic": {"Galactic Circuit Pass"},
-        "invitational": {"Invitational Circuit Pass"}
+        "amateur": {"Amateur Course Unlock"},
+        "semi-pro": {"Semi-Pro Circuit Pass", "Semi-Pro Course Unlock"},
+        "galactic": {"Galactic Circuit Pass", "Galactic Course Unlock"},
+        "invitational": {"Invitational Circuit Pass", "Invitational Course Unlock"}
     }
 
     racers_pool = racers_table
