@@ -76,7 +76,7 @@ class OneLapMode(Toggle):
     """Races only require 1 lap to complete"""
     display_name = "1-Lap Mode"
 
-class AutoHintShop(DefaultOnToggle):
+class AutoHintShop(Toggle):
     """Automatically hints shop items as they unlock"""
     display_name = "Auto-Hint Shop"
 
