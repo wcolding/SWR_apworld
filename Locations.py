@@ -255,6 +255,12 @@ circuit_data_map = {
     INVITATIONAL_CIRCUIT: SWRCircuitData(21, 25, invitational_course_clears_table, invitational_course_unlocks_table),
 }
 
+class SWRCourseData():
+    def __init__(self, name: str, id: int):
+        self.name = name
+        self.id = id
+        self.mirrored = False
+
 full_location_table = {
     **wattos_shop_table,
     **pit_droid_shop_table,

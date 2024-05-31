@@ -35,6 +35,13 @@ class StartingRacersCount(Range):
     range_end = 23
     default = 6
 
+class MirroredTracks(Range):
+    """How many tracks should be mirrored"""
+    display_name = "Mirrored Tracks"
+    range_start = 0
+    range_end = 25
+    default = 0
+
 class AIScaling(Choice):
     """Affects AI speed
     Vanilla: Courses use their default scaling
@@ -80,6 +87,7 @@ class SWROptions(PerGameCommonOptions):
     progressive_circuits: ProgressiveCircuits
     starting_racers: StartingRacers
     starting_racers_count: StartingRacersCount
+    mirrored_tracks: MirroredTracks
     disable_part_damage: DisablePartDamage
     ai_scaling: AIScaling
     additional_ai_multiplier: AdditionalAIMultiplier

@@ -54,6 +54,7 @@ class SWRWorld(World):
     racers_pool = racers_table
     starting_racers_flag = 0
     randomized_courses = Dict[int, int]
+    randomized_course_data = list()
     randomized_course_names = list()
 
     local_item_count = 0
@@ -75,15 +76,25 @@ class SWRWorld(World):
 
     def randomize_courses(self):
         self.randomized_courses = {}
-        course_clears = list(course_clears_table.keys())
-        course_names = list(courses_table.keys())
-        self.randomized_course_names = list(course_names)
-        random.shuffle(self.randomized_course_names)
+        course_clears = [*course_clears_table]
+        course_names = [*courses_table]
+        for i in range(0, len(course_names)):
+            self.randomized_course_data += [SWRCourseData(course_names[i], courses_table[course_names[i]])]
+        random.shuffle(self.randomized_course_data)
 
-        for i in range(0, len(self.randomized_course_names)):
-            current_course = courses_table[self.randomized_course_names[i]]
-            self.randomized_courses.update({int(i): int(current_course)})
-            self.multiworld.spoiler.set_entrance(f"{course_clears[i]} ({course_names[i]})", self.randomized_course_names[i], 'entrance', self.player)
+        if self.options.mirrored_tracks.value > 0:
+            for i in range(0, self.options.mirrored_tracks.value):
+                self.randomized_course_data[i].mirrored = True
+            random.shuffle(self.randomized_course_data)
+
+        # Set course data and spoiler log info
+        for i in range(0, len(self.randomized_course_data)):
+            current_course = self.randomized_course_data[i]
+            if current_course.mirrored:
+                current_course.id |= 0x80
+                current_course.name += " (Mirrored)"
+            self.randomized_courses.update({int(i): int(current_course.id)})
+            self.multiworld.spoiler.set_entrance(f"{course_clears[i]} ({course_names[i]})", current_course.name, 'entrance', self.player)
 
     def generate_early(self):
         self.set_starting_racers()
