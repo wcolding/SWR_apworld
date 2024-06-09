@@ -52,7 +52,7 @@ class SWRWorld(World):
         "invitational": {"Invitational Circuit Pass", "Invitational Course Unlock"}
     }
 
-    racers_pool = racers_table
+    racers_pool = dict(racers_table)
     starting_racers_flag = 0
     randomized_courses = Dict[int, int]
     randomized_course_data = list()
@@ -61,6 +61,7 @@ class SWRWorld(World):
     local_item_count = 0
 
     def set_starting_racers(self):
+        self.racers_pool = dict(racers_table)
         if self.options.starting_racers == 0:
             # Vanilla
             for racer in vanilla_racers_list:
@@ -76,6 +77,9 @@ class SWRWorld(World):
                 self.starting_racers_flag |= self.racers_pool.pop(selected_racer).bitflag        
 
     def randomize_courses(self):
+        self.randomized_courses = Dict[int, int]
+        self.randomized_course_data = list()
+        self.randomized_course_names = list()
         self.randomized_courses = {}
         course_clears = [*course_clears_table]
         course_names = [*courses_table]
