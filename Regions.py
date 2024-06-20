@@ -120,29 +120,24 @@ def create_circuit_region_with_course_shuffle(world: World, name: str, circuit: 
     circuit_len = circuit_data.end - circuit_data.start
     
     for i in range(0, circuit_len):
+        required_count = i 
+        if (circuit != AMATEUR_CIRCUIT):
+            required_count += 1
+
         # Clears / Money reward
         clear_name = [*circuit_data.clears_table][i]
-        if (i == 0) and (circuit == AMATEUR_CIRCUIT):
-            add_location_with_rule(world, new_reg, clear_name, lambda state: True)
-        else:
-            add_location_with_rule(world, new_reg, clear_name, lambda state: state.has(required_item_name, world.player, i + 1))
+        add_location_with_rule(world, new_reg, clear_name, lambda state: state.has(required_item_name, world.player, required_count))
 
         # Course Unlocks
         if i < len([*circuit_data.unlocks_table]):
             unlock_name = [*circuit_data.unlocks_table][i]
-            if (i == 0) and (circuit == AMATEUR_CIRCUIT):
-                add_location_with_rule(world, new_reg, unlock_name, lambda state: True)
-            else:
-                add_location_with_rule(world, new_reg, unlock_name, lambda state: state.has(required_item_name, world.player, i + 1))
+            add_location_with_rule(world, new_reg, unlock_name, lambda state: state.has(required_item_name, world.player, required_count))
 
         # Racer Unlocks
         course_name =  world.randomized_course_names[circuit_data.start + i]
         for loc in [*racer_unlocks_table]:
             if loc.removeprefix("Racer Unlock - ") in course_name:
-                if (i == 0) and (circuit == AMATEUR_CIRCUIT):
-                    add_location_with_rule(world, new_reg, loc, lambda state: True)
-                else:
-                    add_location_with_rule(world, new_reg, loc, lambda state: state.has(required_item_name, world.player, i + 1))    
+                add_location_with_rule(world, new_reg, loc, lambda state: state.has(required_item_name, world.player, required_count)) 
 
     world.multiworld.regions.append(new_reg)
 
