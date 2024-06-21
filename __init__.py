@@ -141,12 +141,21 @@ class SWRWorld(World):
 
     def create_items(self) -> None:
         # Pod Parts
+        parts_dict = dict(pod_upgrades_table)
+        
         if self.options.progressive_parts:
-            for part in pod_progressive_upgrades_table:
-                self.append_items_from_data(part)
-        else:
-            for part in pod_upgrades_table:
-                self.append_items_from_data(part)
+            parts_dict = dict(pod_progressive_upgrades_table)
+        
+        if self.options.no_traction_upgrades:
+            parts_dict.pop("Progressive Traction", None)
+            parts_dict.pop("R-60 Repulsorgrip", None)
+            parts_dict.pop("R-80 Repulsorgrip", None)
+            parts_dict.pop("R-100 Repulsorgrip", None)
+            parts_dict.pop("R-300 Repulsorgrip", None)
+            parts_dict.pop("R-600 Repulsorgrip", None)
+
+        for part in parts_dict:
+            self.append_items_from_data(part)
 
         # Pit Droids
         if not self.options.disable_part_damage:

@@ -4,6 +4,10 @@ class ProgressiveParts(Toggle):
     """Pod racer parts will always be the next level upgrade"""
     display_name = "Progressive Parts"
 
+class NoTractionUpgrades(Toggle):
+    """Removes Traction parts from the item pool"""
+    display_name = "No Traction Upgrades"
+
 class ProgressiveCircuits(Toggle):
     """Access to circuits will be in the regular order
     Only applies when using Circuit Pass or Circuit Pass Invitational unlock modes"""
@@ -90,6 +94,7 @@ class DeathLinkAmnesty(Range):
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
+    no_traction_upgrades: NoTractionUpgrades
     course_unlock_mode: CourseUnlockMode
     progressive_circuits: ProgressiveCircuits
     starting_racers: StartingRacers
