@@ -80,6 +80,13 @@ class AutoHintShop(Toggle):
     """Automatically hints shop items as they unlock"""
     display_name = "Auto-Hint Shop"
 
+class DeathLinkAmnesty(Range):
+    """Amount of times you can crash your pod before sending a DeathLink to the server"""
+    display_name = "Death Link Amnesty"
+    range_start = 0
+    range_end = 50
+    default = 0
+
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
@@ -94,4 +101,5 @@ class SWROptions(PerGameCommonOptions):
     enable_multiplier_control: EnableMultiplierControl
     one_lap_mode: OneLapMode
     auto_hint_shop: AutoHintShop
+    deathlink_amnesty: DeathLinkAmnesty
     deathlink: DeathLink

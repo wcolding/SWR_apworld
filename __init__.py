@@ -119,6 +119,7 @@ class SWRWorld(World):
             "EnableMultiplierControl": self.options.enable_multiplier_control.value,
             "OneLapMode": self.options.one_lap_mode.value,
             "AutoHintShop": self.options.auto_hint_shop.value,
+            "DeathLinkAmnesty": self.options.deathlink_amnesty.value,
             "DeathLink": self.options.deathlink.value
         }
     
