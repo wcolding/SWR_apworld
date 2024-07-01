@@ -191,8 +191,11 @@ class SWRWorld(World):
             self.append_items_from_data("Invitational Course Unlock")
         
         # Racers
-        for racer in self.racers_pool:
-            self.append_items_from_data(racer)
+        racer_names = [*self.racers_pool]
+        random.shuffle(racer_names)
+        extra_racers = min(self.options.max_additional_racers.value, len(racer_names))
+        for i in range(0, extra_racers):
+            self.append_items_from_data(racer_names.pop())
 
         # Money
         for item in money_item_table:

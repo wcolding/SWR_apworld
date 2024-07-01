@@ -39,6 +39,13 @@ class StartingRacersCount(Range):
     range_end = 23
     default = 6
 
+class MaxAdditionalRacers(Range):
+    """How many racers can be added to the pool (excluding the starting racers)"""
+    display_name = "Max Additional Racers"
+    range_start = 0
+    range_end = 22
+    default = 22
+
 class MirroredTracks(Range):
     """How many tracks should be mirrored"""
     display_name = "Mirrored Tracks"
@@ -99,6 +106,7 @@ class SWROptions(PerGameCommonOptions):
     progressive_circuits: ProgressiveCircuits
     starting_racers: StartingRacers
     starting_racers_count: StartingRacersCount
+    max_additional_racers: MaxAdditionalRacers
     mirrored_tracks: MirroredTracks
     disable_part_damage: DisablePartDamage
     ai_scaling: AIScaling
