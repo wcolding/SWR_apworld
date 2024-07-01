@@ -134,12 +134,16 @@ class SWRWorld(World):
         item_data = full_item_table[name]
         count = item_data.max_allowed
         if count_override != None:
+            if count_override < 1:
+                return
             count = count_override
 
         self.local_item_count += count
         self.multiworld.itempool += [SWRItem(name, item_data.classification, item_data.id, self.player) for i in range(0, count)]
 
     def create_items(self) -> None:
+        self.local_item_count = 0
+
         # Pod Parts
         parts_dict = dict(pod_upgrades_table)
         
