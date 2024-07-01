@@ -48,7 +48,7 @@ def create_swr_regions(world: World):
         else:
             # Player needs 1st place in all tracks in each preceding circuit to unlock the first three tracks in the invitation
             # For now we will treat it as all or nothing
-            create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.can_reach("Semi-Pro Circuit", 'Region', world.player) and state.can_reach("Galactic Circuit", 'Region', world.player))
+            create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.has("Semi-Pro Circuit Pass", world.player) and state.has("Galactic Circuit Pass", world.player))
 
         # Shop
         create_region_with_rule(world, "Watto's Shop 0 Races", list(watto_0_races.keys()), lambda state: True)
