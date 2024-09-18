@@ -7,6 +7,7 @@ from .Options import *
 from .Items import *
 from .Locations import *
 from .Regions import *
+from .ShopCosts import *
 
 class SWRWorld(World):
     """
@@ -60,6 +61,13 @@ class SWRWorld(World):
 
     local_item_count = 0
 
+    shop_costs_data = list()
+
+    def set_shop_costs(self):
+        self.shop_costs_data = list()
+        temp_costs = shop_costs_table[self.options.shop_costs.value]
+        shop_costs_data = [cost * self.options.shop_cost_multiplier.value for cost in temp_costs]
+
     def set_starting_racers(self):
         self.racers_pool = dict(racers_table)
         if self.options.starting_racers == 0:
@@ -105,6 +113,7 @@ class SWRWorld(World):
     def generate_early(self):
         self.set_starting_racers()
         self.randomize_courses()
+        self.set_shop_costs()
 
     def fill_slot_data(self):
         return {
@@ -119,6 +128,7 @@ class SWRWorld(World):
             "EnableMultiplierControl": self.options.enable_multiplier_control.value,
             "OneLapMode": self.options.one_lap_mode.value,
             "AutoHintShop": self.options.auto_hint_shop.value,
+            "ShopCosts": self.shop_costs_data,
             "DeathLinkAmnesty": self.options.deathlink_amnesty.value,
             "DeathLink": self.options.deathlink.value
         }
