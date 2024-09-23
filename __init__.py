@@ -61,12 +61,16 @@ class SWRWorld(World):
 
     local_item_count = 0
 
-    shop_costs_data = list()
-
     def set_shop_costs(self):
-        self.shop_costs_data = list()
+        self.shop_costs_data = dict()
         temp_costs = shop_costs_table[self.options.shop_costs.value]
-        shop_costs_data = [cost * self.options.shop_cost_multiplier.value for cost in temp_costs]
+        index_offset = 0
+        for i in range(0, len(temp_costs)):
+            if i % 5 == 0:
+                index_offset += 1
+            self.shop_costs_data.update({int(i + index_offset): int(temp_costs[i] * self.options.shop_cost_multiplier.value)})
+        
+        
 
     def set_starting_racers(self):
         self.racers_pool = dict(racers_table)
@@ -119,6 +123,7 @@ class SWRWorld(World):
         return {
             "StartingRacers": self.starting_racers_flag,
             "Courses": self.randomized_courses,
+            "ShopCosts": self.shop_costs_data,
             "ProgressiveParts": self.options.progressive_parts.value,
             "CourseUnlockMode": self.options.course_unlock_mode.value,
             "ProgressiveCircuits": self.options.progressive_circuits.value,
@@ -128,7 +133,6 @@ class SWRWorld(World):
             "EnableMultiplierControl": self.options.enable_multiplier_control.value,
             "OneLapMode": self.options.one_lap_mode.value,
             "AutoHintShop": self.options.auto_hint_shop.value,
-            "ShopCosts": self.shop_costs_data,
             "DeathLinkAmnesty": self.options.deathlink_amnesty.value,
             "DeathLink": self.options.deathlink.value
         }
