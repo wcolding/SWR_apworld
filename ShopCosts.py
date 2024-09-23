@@ -1,3 +1,5 @@
+# All of these skip the base item slot, which is hidden by the client anyway
+
 default_shop_costs = [ 
     400, 600, 1200, 2600, 6000,      # Traction
     400, 700, 1600, 3800, 7500,      # Turning
