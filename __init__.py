@@ -7,6 +7,7 @@ from .Options import *
 from .Items import *
 from .Locations import *
 from .Regions import *
+from .ShopCosts import *
 
 class SWRWorld(World):
     """
@@ -60,6 +61,17 @@ class SWRWorld(World):
 
     local_item_count = 0
 
+    def set_shop_costs(self):
+        self.shop_costs_data = dict()
+        temp_costs = shop_costs_table[self.options.shop_costs.value]
+        index_offset = 0
+        for i in range(0, len(temp_costs)):
+            if i % 5 == 0:
+                index_offset += 1
+            self.shop_costs_data.update({int(i + index_offset): int(temp_costs[i] * self.options.shop_cost_multiplier.value)})
+        
+        
+
     def set_starting_racers(self):
         self.racers_pool = dict(racers_table)
         if self.options.starting_racers == 0:
@@ -105,11 +117,13 @@ class SWRWorld(World):
     def generate_early(self):
         self.set_starting_racers()
         self.randomize_courses()
+        self.set_shop_costs()
 
     def fill_slot_data(self):
         return {
             "StartingRacers": self.starting_racers_flag,
             "Courses": self.randomized_courses,
+            "ShopCosts": self.shop_costs_data,
             "ProgressiveParts": self.options.progressive_parts.value,
             "CourseUnlockMode": self.options.course_unlock_mode.value,
             "ProgressiveCircuits": self.options.progressive_circuits.value,

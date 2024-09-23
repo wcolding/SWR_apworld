@@ -98,6 +98,24 @@ class DeathLinkAmnesty(Range):
     range_end = 50
     default = 0
 
+class ShopCosts(Choice):
+    """Sets the cost of items at Watto's shop
+    Vanilla: Prices are unchanged. Some may require grinding truguts to afford
+    Normalized: Prices are much closer together, with some categories being slightly more expensive than others
+    Tiered: Each tier of any part type is an identical cost to that of other parts. This is the cheapest option
+    """
+    display_name = "Shop Costs"
+    option_vanilla = 0
+    option_normalized = 1
+    option_tiered = 2
+
+class ShopCostMultiplier(Range):
+    """Additional multiplier for shop costs"""
+    display_name = "Shop Cost Multiplier"
+    range_start = 1
+    range_end = 10
+    default = 1
+
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
@@ -114,5 +132,7 @@ class SWROptions(PerGameCommonOptions):
     enable_multiplier_control: EnableMultiplierControl
     one_lap_mode: OneLapMode
     auto_hint_shop: AutoHintShop
+    shop_costs: ShopCosts
+    shop_cost_multiplier: ShopCostMultiplier
     deathlink_amnesty: DeathLinkAmnesty
     deathlink: DeathLink
