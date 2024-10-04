@@ -1,4 +1,4 @@
-from Options import Choice, Range, Toggle, DefaultOnToggle, DeathLink, dataclass, PerGameCommonOptions
+from Options import Choice, Range, Toggle, DefaultOnToggle, OptionSet, DeathLink, dataclass, PerGameCommonOptions
 
 class ProgressiveParts(Toggle):
     """Pod racer parts will always be the next level upgrade"""
@@ -38,6 +38,12 @@ class StartingRacersCount(Range):
     range_start = 1
     range_end = 23
     default = 6
+
+class StartingRacersPlando(OptionSet):
+    """List of specific racers with which to start
+    This option is only used if Starting Racers is set to 'random_range'
+    """
+    display_name = "Starting Racers Plando"
 
 class MaxAdditionalRacers(Range):
     """How many racers can be added to the pool (excluding the starting racers)"""
@@ -124,6 +130,7 @@ class SWROptions(PerGameCommonOptions):
     progressive_circuits: ProgressiveCircuits
     starting_racers: StartingRacers
     starting_racers_count: StartingRacersCount
+    starting_racers_plando: StartingRacersPlando
     max_additional_racers: MaxAdditionalRacers
     mirrored_tracks: MirroredTracks
     disable_part_damage: DisablePartDamage

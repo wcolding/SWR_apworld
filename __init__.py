@@ -53,7 +53,6 @@ class SWRWorld(World):
         "invitational": {"Invitational Circuit Pass", "Invitational Course Unlock"}
     }
 
-    racers_pool = dict(racers_table)
     starting_racers_flag = 0
     randomized_courses = Dict[int, int]
     randomized_course_data = list()
@@ -74,6 +73,7 @@ class SWRWorld(World):
 
     def set_starting_racers(self):
         self.racers_pool = dict(racers_table)
+
         if self.options.starting_racers == 0:
             # Vanilla
             for racer in vanilla_racers_list:
@@ -81,7 +81,22 @@ class SWRWorld(World):
         else:
             # Random Range
             rand_range = self.options.starting_racers_count
-            racer_names = list(racers_table.keys())
+            racer_names = [*racers_table]
+
+            # Handle plando first
+            if rand_range < len(self.options.starting_racers_plando.value):
+                print("Unable to plando starting racers; list size exceeds Starting Racers Count value")
+            else:
+                for plando_racer in self.options.starting_racers_plando.value:
+                    if plando_racer in racer_names:
+                        racer_names.remove(plando_racer)
+                        rand_range -= 1
+                        self.starting_racers_flag |= self.racers_pool.pop(plando_racer).bitflag
+                        print(f"Plando'd starting racer: {plando_racer}")
+                    else:
+                        print(f"Unable to plando racer: {plando_racer}\nNo matching racer name found")
+
+            # Shuffle the remaining racers and pick from them
             random.shuffle(racer_names)
             
             for i in range(0, rand_range):
