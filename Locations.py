@@ -274,3 +274,34 @@ def get_location_name_to_id():
     for item in full_location_table:
         location_name_to_id[item] = full_location_table[item].id
     return location_name_to_id
+
+def get_masked_course_id(course_name) -> int:
+    mask = 0
+    temp_name = course_name
+    if " (Mirrored)" in course_name:
+        mask = 0x80
+        temp_name = course_name.replace(" (Mirrored)", "")
+    if temp_name in courses_table:
+        return courses_table[temp_name] | mask
+    return -1
+
+def get_course_name_from_id(id) -> str | None:
+    mirrored = (id & 0x80 != 0)
+    masked_id = id | 0x80
+    masked_id = masked_id ^ 0x80
+    names = {v:k for k,v in courses_table.items()}
+    if masked_id in names:
+        name = names[masked_id]
+        if mirrored:
+            name = f"{name} (Mirrored)"
+        return name
+    else:
+        print(f"Couldn't match id {id}")
+        return None
+
+def get_course_entrance_index(entrance_name) -> int:
+    if entrance_name in course_clears_table:
+        entry = course_clears_table[entrance_name]
+        return entry.id - SWR_LOC_OFFSET - 45
+    else:
+        return -1

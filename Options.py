@@ -1,4 +1,4 @@
-from Options import Choice, Range, Toggle, DefaultOnToggle, OptionSet, DeathLink, dataclass, PerGameCommonOptions
+from Options import Choice, Range, Toggle, DefaultOnToggle, OptionSet, OptionDict, DeathLink, dataclass, PerGameCommonOptions
 
 class ProgressiveParts(Toggle):
     """Pod racer parts will always be the next level upgrade"""
@@ -122,6 +122,12 @@ class ShopCostMultiplier(Range):
     range_end = 10
     default = 1
 
+class CoursePlando(OptionDict):
+    """Sets specific courses
+    For mirrored, append ' (Mirrored)' to any course name
+    Repeated courses will cause errors"""
+    display_name = "Course Plando"
+
 @dataclass
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
@@ -141,5 +147,6 @@ class SWROptions(PerGameCommonOptions):
     auto_hint_shop: AutoHintShop
     shop_costs: ShopCosts
     shop_cost_multiplier: ShopCostMultiplier
+    course_plando: CoursePlando
     deathlink_amnesty: DeathLinkAmnesty
     deathlink: DeathLink
