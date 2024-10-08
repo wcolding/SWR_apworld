@@ -20,8 +20,6 @@ class SWRWorld(World):
     options_dataclass = SWROptions
     options: SWROptions
 
-    required_client_version = (0, 6, 0)
-
     item_name_to_id = get_item_name_to_id()
     location_name_to_id = get_location_name_to_id()
     
