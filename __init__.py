@@ -53,7 +53,6 @@ class SWRWorld(World):
         "invitational": {"Invitational Circuit Pass", "Invitational Course Unlock"}
     }
 
-    racers_pool = dict(racers_table)
     starting_racers_flag = 0
     randomized_courses = Dict[int, int]
     randomized_course_data = list()
@@ -69,11 +68,10 @@ class SWRWorld(World):
             if i % 5 == 0:
                 index_offset += 1
             self.shop_costs_data.update({int(i + index_offset): int(temp_costs[i] * self.options.shop_cost_multiplier.value)})
-        
-        
 
     def set_starting_racers(self):
         self.racers_pool = dict(racers_table)
+
         if self.options.starting_racers == 0:
             # Vanilla
             for racer in vanilla_racers_list:
@@ -81,7 +79,22 @@ class SWRWorld(World):
         else:
             # Random Range
             rand_range = self.options.starting_racers_count
-            racer_names = list(racers_table.keys())
+            racer_names = [*racers_table]
+
+            # Handle plando first
+            if rand_range < len(self.options.starting_racers_plando.value):
+                print("Unable to plando starting racers; list size exceeds Starting Racers Count value")
+            else:
+                for plando_racer in self.options.starting_racers_plando.value:
+                    if plando_racer in racer_names:
+                        racer_names.remove(plando_racer)
+                        rand_range -= 1
+                        self.starting_racers_flag |= self.racers_pool.pop(plando_racer).bitflag
+                        print(f"Plando'd starting racer: {plando_racer}")
+                    else:
+                        print(f"Unable to plando racer: {plando_racer}\nNo matching racer name found")
+
+            # Shuffle the remaining racers and pick from them
             random.shuffle(racer_names)
             
             for i in range(0, rand_range):
@@ -89,30 +102,69 @@ class SWRWorld(World):
                 self.starting_racers_flag |= self.racers_pool.pop(selected_racer).bitflag        
 
     def randomize_courses(self):
-        self.randomized_courses = Dict[int, int]
+        self.randomized_courses = dict()
         self.randomized_course_data = list()
         self.randomized_course_names = list()
-        self.randomized_courses = {}
-        course_clears = [*course_clears_table]
+
+        course_entrances = [*course_clears_table]
         course_names = [*courses_table]
-        for i in range(0, len(course_names)):
-            self.randomized_course_data += [SWRCourseData(course_names[i], courses_table[course_names[i]])]
+        mirrored_tracks = self.options.mirrored_tracks.value
+
+        temp_courses = dict()
+
+        # Handle plando first
+        for plando_entry in self.options.course_plando.value.items():
+            if plando_entry[0] in course_entrances:
+                plando_course_name = plando_entry[1].replace(" (Mirrored)", "")
+                if plando_course_name in course_names:
+                    # Remove this entramce and course from the pool
+                    course_names.remove(plando_course_name)
+                    course_entrances.remove(plando_entry[0])
+
+                    # Add this entry to the dict
+                    index = get_course_entrance_index(plando_entry[0])
+                    id = get_masked_course_id(plando_entry[1])
+                    if (id & 0x80) != 0:
+                        mirrored_tracks -= 1
+                    temp_courses.update({index: id})
+                else:
+                    print(f"Could not plando course '{plando_entry[1]}'; no matching entry found")
+            else:
+                print(f"Could not plando course on location '{plando_entry[0]}'; no matching entry found")
+
+        # Build course data of remaining courses
+        for course in course_names:
+            self.randomized_course_data += [SWRCourseData(course, courses_table[course])]
+
         random.shuffle(self.randomized_course_data)
 
-        if self.options.mirrored_tracks.value > 0:
-            for i in range(0, self.options.mirrored_tracks.value):
+        # Mirror any tracks not covered in plando
+        if mirrored_tracks > 0:
+            for i in range(0, mirrored_tracks):
                 self.randomized_course_data[i].mirrored = True
             random.shuffle(self.randomized_course_data)
 
-        # Set course data and spoiler log info
-        for i in range(0, len(self.randomized_course_data)):
-            current_course = self.randomized_course_data[i]
-            self.randomized_course_names += [current_course.name]
+        # Fill in temp courses table with remaining course data
+        index_offset = 0
+        for current_course in self.randomized_course_data:
             if current_course.mirrored:
                 current_course.id |= 0x80
-                current_course.name += " (Mirrored)"
-            self.randomized_courses.update({int(i): int(current_course.id)})
-            self.multiworld.spoiler.set_entrance(f"{course_clears[i]} ({course_names[i]})", current_course.name, 'entrance', self.player)
+            while index_offset in temp_courses.keys():
+                index_offset += 1
+            temp_courses.update({index_offset: current_course.id})
+            index_offset += 1
+            
+        # Sort temp courses into the actual order
+        for entry in sorted(temp_courses):
+            self.randomized_courses.update({entry: temp_courses[entry]})
+
+        # Populate course names list and spoiler log
+        original_entrances = [*course_clears_table]
+        course_keys = [*self.randomized_courses]
+        for i in range(0, len(course_keys)):
+            course_name = get_course_name_from_id(self.randomized_courses[course_keys[i]])
+            self.randomized_course_names += [course_name]
+            self.multiworld.spoiler.set_entrance(f"{original_entrances[i]}", course_name, 'entrance', self.player)
 
     def generate_early(self):
         self.set_starting_racers()
