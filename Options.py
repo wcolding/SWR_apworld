@@ -86,7 +86,8 @@ class EnableMultiplierControl(DefaultOnToggle):
 
 class DisablePartDamage(DefaultOnToggle):
     """Prevents parts from being damaged and removes pit droids from the item pool
-    Extra money will be added to the pool
+    This does not remove the pit droid shop checks, just the pit droids themselves
+    Extra money will be added to the pool to compensate
     """
     display_name = "Disable Part Damage"
 
