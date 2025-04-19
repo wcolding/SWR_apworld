@@ -70,7 +70,7 @@ class SWRWorld(World):
     def set_starting_racers(self):
         self.racers_pool = dict(racers_table)
 
-        if self.options.starting_racers == 0:
+        if self.options.randomize_starting_racers.value == False:
             # Vanilla
             for racer in vanilla_racers_list:
                 self.starting_racers_flag |= self.racers_pool.pop(racer).bitflag
