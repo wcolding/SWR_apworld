@@ -61,7 +61,7 @@ class MirroredTracks(Range):
 
 class AIScaling(Choice):
     """Affects AI speed
-    Vanilla: Courses use their default scaling
+    Vanilla: Courses use their default scaling, which may result in tough races early on
     Circuits: AI is scaled according to the current circuit
     Parts: AI is dynamically scaled according to the quality of your parts
     """
@@ -69,6 +69,7 @@ class AIScaling(Choice):
     option_vanilla = 0
     option_circuits = 1 
     option_parts = 2
+    default = 1
 
 class AdditionalAIMultiplier(Range):
     """Applies additional scaling to AI
