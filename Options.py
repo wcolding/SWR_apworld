@@ -24,15 +24,13 @@ class CourseUnlockMode(Choice):
     option_circuit_pass_invitational = 1
     option_shuffle = 2
 
-class StartingRacers(Choice):
-    """Change which racers are available to use at the beginning"""
-    display_name = "Starting Racers"
-    option_vanilla = 0
-    option_random_range = 1
+class RandomizeStartingRacers(DefaultOnToggle):
+    """Changes which racers are available to use at the beginning"""
+    display_name = "Randomize Starting Racers"
 
 class StartingRacersCount(Range):
     """How many random racers to start with
-    This option is only used if Starting Racers is set to 'random_range'
+    This option is only used if 'Randomize Starting Racers' is enabled
     """
     display_name = "Number of Starting Racers"
     range_start = 1
@@ -41,7 +39,7 @@ class StartingRacersCount(Range):
 
 class StartingRacersPlando(OptionSet):
     """List of specific racers with which to start
-    This option is only used if Starting Racers is set to 'random_range'
+    This option is only used if 'Randomize Starting Racers' is enabled
     """
     display_name = "Starting Racers Plando"
 
@@ -136,7 +134,7 @@ class SWROptions(PerGameCommonOptions):
     no_traction_upgrades: NoTractionUpgrades
     course_unlock_mode: CourseUnlockMode
     progressive_circuits: ProgressiveCircuits
-    starting_racers: StartingRacers
+    randomize_starting_racers: RandomizeStartingRacers
     starting_racers_count: StartingRacersCount
     starting_racers_plando: StartingRacersPlando
     max_additional_racers: MaxAdditionalRacers
