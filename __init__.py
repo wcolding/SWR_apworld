@@ -1,5 +1,4 @@
 from typing import Dict
-import random
 
 from BaseClasses import Item
 from ..AutoWorld import World
@@ -93,7 +92,7 @@ class SWRWorld(World):
                         print(f"Unable to plando racer: {plando_racer}\nNo matching racer name found")
 
             # Shuffle the remaining racers and pick from them
-            random.shuffle(racer_names)
+            self.random.shuffle(racer_names)
             
             for i in range(0, rand_range):
                 selected_racer = racer_names.pop()
@@ -134,13 +133,13 @@ class SWRWorld(World):
         for course in course_names:
             self.randomized_course_data += [SWRCourseData(course, courses_table[course])]
 
-        random.shuffle(self.randomized_course_data)
+        self.random.shuffle(self.randomized_course_data)
 
         # Mirror any tracks not covered in plando
         if mirrored_tracks > 0:
             for i in range(0, mirrored_tracks):
                 self.randomized_course_data[i].mirrored = True
-            random.shuffle(self.randomized_course_data)
+            self.random.shuffle(self.randomized_course_data)
 
         # Fill in temp courses table with remaining course data
         index_offset = 0
@@ -256,7 +255,7 @@ class SWRWorld(World):
         
         # Racers
         racer_names = [*self.racers_pool]
-        random.shuffle(racer_names)
+        self.random.shuffle(racer_names)
         extra_racers = min(self.options.max_additional_racers.value, len(racer_names))
         for i in range(0, extra_racers):
             self.append_items_from_data(racer_names.pop())
