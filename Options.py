@@ -110,6 +110,7 @@ class ShopCosts(Choice):
     option_vanilla = 0
     option_normalized = 1
     option_tiered = 2
+    default = 1
 
 class ShopCostMultiplier(Range):
     """Additional multiplier for shop costs"""
