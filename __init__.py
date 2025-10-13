@@ -229,7 +229,7 @@ class SWRWorld(World):
 
         # Courses
         course_mode = self.options.course_unlock_mode.get_option_name(self.options.course_unlock_mode.value)
-        if course_mode == "Full_Shuffle":
+        if course_mode == "Full Shuffle":
             self.append_items_from_data("Amateur Course Unlock", 6)
             self.append_items_from_data("Semi-Pro Course Unlock")
             self.append_items_from_data("Galactic Course Unlock")
