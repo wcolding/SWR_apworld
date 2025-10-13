@@ -8,14 +8,17 @@ def create_swr_regions(world: World):
     menu_region = Region("Menu", world.player, world.multiworld)
     world.multiworld.regions.append(menu_region)
 
-    # Circuits: Course clears, racer unlocks, and (optionally) course unlocks
+    create_region_with_rule(world, "Pit Droid Shop", list(pit_droid_shop_table.keys()), lambda state: True)
+    course_mode = world.options.course_unlock_mode.get_option_name(world.options.course_unlock_mode.value)
 
-    if world.options.course_unlock_mode == 2:
+    if course_mode == "Full Shuffle":
+        # Circuit unlocks
         create_circuit_region_with_course_shuffle(world, "Amateur Circuit", AMATEUR_CIRCUIT)
         create_circuit_region_with_course_shuffle(world, "Semi-Pro Circuit", SEMIPRO_CIRCUIT)
         create_circuit_region_with_course_shuffle(world, "Galactic Circuit", GALACTIC_CIRCUIT)
         create_circuit_region_with_course_shuffle(world, "Invitational Circuit", INVITATIONAL_CIRCUIT)
 
+        # Shop
         create_region_with_rule(world, "Watto's Shop 0 Races", list(watto_0_races.keys()), lambda state: True)
         create_region_with_rule(world, "Watto's Shop 2 Races", list(watto_2_races.keys()), lambda state: has_enough_races_course_shuffle(state, world.player, 2))
         create_region_with_rule(world, "Watto's Shop 4 Races", list(watto_4_races.keys()), lambda state: has_enough_races_course_shuffle(state, world.player, 4))
@@ -25,75 +28,62 @@ def create_swr_regions(world: World):
         create_region_with_rule(world, "Watto's Shop 12 Races", list(watto_12_races.keys()), lambda state: has_enough_races_course_shuffle(state, world.player, 12))
         create_region_with_rule(world, "Watto's Shop 14 Races", list(watto_14_races.keys()), lambda state: has_enough_races_course_shuffle(state, world.player, 14))
         create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: has_enough_races_course_shuffle(state, world.player, 16))
+
+        # Win Condition
+        world.multiworld.completion_condition[world.player] = \
+            lambda state: state.has("Amateur Course Unlock", world.player, 6) \
+            and state.has("Semi-Pro Course Unlock", world.player, 7) \
+            and state.has("Galactic Course Unlock", world.player, 7) \
+            and state.has("Invitational Course Unlock", world.player, 4)
     else:
         amateur_locations = get_circuit_locations(world, AMATEUR_CIRCUIT)
         semipro_locations = get_circuit_locations(world, SEMIPRO_CIRCUIT)
         galactic_locations = get_circuit_locations(world, GALACTIC_CIRCUIT)
         invitational_locations = get_circuit_locations(world, INVITATIONAL_CIRCUIT)
 
+        # Amateur is always accessible
         create_region_with_rule(world, "Amateur Circuit", amateur_locations, lambda state: True)
 
-        if world.options.progressive_circuits:
-            create_region_with_rule(world, "Semi-Pro Circuit", semipro_locations, lambda state: state.has("Progressive Circuit Pass", world.player, 1))
-            create_region_with_rule(world, "Galactic Circuit", galactic_locations, lambda state: state.has("Progressive Circuit Pass", world.player, 2))
-        else:
-            create_region_with_rule(world, "Semi-Pro Circuit", semipro_locations, lambda state: state.has("Semi-Pro Circuit Pass", world.player))
-            create_region_with_rule(world, "Galactic Circuit", galactic_locations, lambda state: state.has("Galactic Circuit Pass", world.player))
-
-        if world.options.course_unlock_mode == 1:
-            if world.options.progressive_circuits:
-                create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.has("Progressive Circuit Pass", world.player, 3))
-            else:
-                create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.has("Invitational Circuit Pass", world.player))
-        else:
-            # Player needs 1st place in all tracks in each preceding circuit to unlock the first three tracks in the invitation
-            # For now we will treat it as all or nothing
-            create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.has("Semi-Pro Circuit Pass", world.player) and state.has("Galactic Circuit Pass", world.player))
-
-        # Shop
+        # 0-6 races are always logically accessible from doing Amateur races
         create_region_with_rule(world, "Watto's Shop 0 Races", list(watto_0_races.keys()), lambda state: True)
         create_region_with_rule(world, "Watto's Shop 2 Races", list(watto_2_races.keys()), lambda state: True)
         create_region_with_rule(world, "Watto's Shop 4 Races", list(watto_4_races.keys()), lambda state: True)
         create_region_with_rule(world, "Watto's Shop 6 Races", list(watto_6_races.keys()), lambda state: True)
 
-        if world.options.progressive_circuits:
-            create_region_with_rule(world, "Watto's Shop 8 Races",  list(watto_8_races.keys()),  lambda state: state.has("Progressive Circuit Pass", world.player, 1))
-            create_region_with_rule(world, "Watto's Shop 10 Races", list(watto_10_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 1))
-            create_region_with_rule(world, "Watto's Shop 12 Races", list(watto_12_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
-            create_region_with_rule(world, "Watto's Shop 14 Races", list(watto_14_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
-            create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
-        else:
+        if course_mode == "Circuits":
+            # Circuit unlocks
+            create_region_with_rule(world, "Semi-Pro Circuit", semipro_locations, lambda state: state.has("Semi-Pro Circuit Pass", world.player))
+            create_region_with_rule(world, "Galactic Circuit", galactic_locations, lambda state: state.has("Galactic Circuit Pass", world.player))
+            create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.has("Invitational Circuit Pass", world.player))
+
+            # Shop
             create_region_with_rule(world, "Watto's Shop 8 Races",  list(watto_8_races.keys()),  lambda state: has_enough_races(state, world.player, 8))
             create_region_with_rule(world, "Watto's Shop 10 Races", list(watto_10_races.keys()), lambda state: has_enough_races(state, world.player, 10))
             create_region_with_rule(world, "Watto's Shop 12 Races", list(watto_12_races.keys()), lambda state: has_enough_races(state, world.player, 12))
             create_region_with_rule(world, "Watto's Shop 14 Races", list(watto_14_races.keys()), lambda state: has_enough_races(state, world.player, 14))
             create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: has_enough_races(state, world.player, 16))
 
-    create_region_with_rule(world, "Pit Droid Shop", list(pit_droid_shop_table.keys()), lambda state: True)  
-
-    if world.options.course_unlock_mode == 0:
-        if world.options.progressive_circuits:
-            world.multiworld.completion_condition[world.player] = lambda state: state.has("Progressive Circuit Pass", world.player, 2)
-        else:
-            world.multiworld.completion_condition[world.player] = \
-                lambda state: state.has("Semi-Pro Circuit Pass", world.player) \
-                and state.has("Galactic Circuit Pass", world.player)
-    
-    elif world.options.course_unlock_mode == 1:
-        if world.options.progressive_circuits:
-            world.multiworld.completion_condition[world.player] = lambda state: state.has("Progressive Circuit Pass", world.player, 3)
-        else:
+            # Win Condition
             world.multiworld.completion_condition[world.player] = \
                 lambda state: state.has("Semi-Pro Circuit Pass", world.player) \
                 and state.has("Galactic Circuit Pass", world.player) \
                 and state.has("Invitational Circuit Pass", world.player) 
-            
-    elif world.options.course_unlock_mode == 2:
-        world.multiworld.completion_condition[world.player] = \
-            lambda state: state.has("Amateur Course Unlock", world.player, 6) \
-            and state.has("Semi-Pro Course Unlock", world.player, 7) \
-            and state.has("Galactic Course Unlock", world.player, 7) \
-            and state.has("Invitational Course Unlock", world.player, 4) \
+
+        if course_mode == "Progressive Circuits":
+            # Circuit unlocks
+            create_region_with_rule(world, "Semi-Pro Circuit", semipro_locations, lambda state: state.has("Progressive Circuit Pass", world.player, 1))
+            create_region_with_rule(world, "Galactic Circuit", galactic_locations, lambda state: state.has("Progressive Circuit Pass", world.player, 2))
+            create_region_with_rule(world, "Invitational Circuit", invitational_locations, lambda state: state.has("Progressive Circuit Pass", world.player, 3))
+
+            # Shop
+            create_region_with_rule(world, "Watto's Shop 8 Races",  list(watto_8_races.keys()),  lambda state: state.has("Progressive Circuit Pass", world.player, 1))
+            create_region_with_rule(world, "Watto's Shop 10 Races", list(watto_10_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 1))
+            create_region_with_rule(world, "Watto's Shop 12 Races", list(watto_12_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
+            create_region_with_rule(world, "Watto's Shop 14 Races", list(watto_14_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
+            create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
+
+            # Win Condition
+            world.multiworld.completion_condition[world.player] = lambda state: state.has("Progressive Circuit Pass", world.player, 3)
 
 def add_location_with_rule(world: World, region: Region, name: str, rule: CollectionRule) -> SWRLocation:
     new_loc = SWRLocation(world.player, name, full_location_table[name].id, region)

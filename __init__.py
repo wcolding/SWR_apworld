@@ -175,7 +175,6 @@ class SWRWorld(World):
             "ShopCosts": self.shop_costs_data,
             "ProgressiveParts": self.options.progressive_parts.value,
             "CourseUnlockMode": self.options.course_unlock_mode.value,
-            "ProgressiveCircuits": self.options.progressive_circuits.value,
             "DisablePartDamage": self.options.disable_part_damage.value,
             "AIScaling": self.options.ai_scaling.value,
             "AdditionalAIMultiplier": self.options.additional_ai_multiplier.value,
@@ -228,31 +227,22 @@ class SWRWorld(World):
         if not self.options.disable_part_damage:
             self.append_items_from_data("Pit Droid")
 
-        # Circuits
-        if self.options.course_unlock_mode.value == 0:
-            # Circuit Pass
-            if self.options.progressive_circuits:
-                self.append_items_from_data("Progressive Circuit Pass", 2)
-            else:
-                self.append_items_from_data("Semi-Pro Circuit Pass")
-                self.append_items_from_data("Galactic Circuit Pass")
-
-        if self.options.course_unlock_mode.value == 1:
-            # Circuit Pass Invitational
-            if self.options.progressive_circuits:
-                self.append_items_from_data("Progressive Circuit Pass")
-            else:
-                self.append_items_from_data("Semi-Pro Circuit Pass")
-                self.append_items_from_data("Galactic Circuit Pass")
-                self.append_items_from_data("Invitational Circuit Pass")
-
-        if self.options.course_unlock_mode.value == 2:
-            # Shuffle
+        # Courses
+        course_mode = self.options.course_unlock_mode.get_option_name(self.options.course_unlock_mode.value)
+        if course_mode == "Full_Shuffle":
             self.append_items_from_data("Amateur Course Unlock", 6)
             self.append_items_from_data("Semi-Pro Course Unlock")
             self.append_items_from_data("Galactic Course Unlock")
             self.append_items_from_data("Invitational Course Unlock")
-        
+
+        if course_mode == "Circuits":
+            self.append_items_from_data("Semi-Pro Circuit Pass")
+            self.append_items_from_data("Galactic Circuit Pass")
+            self.append_items_from_data("Invitational Circuit Pass")
+
+        if course_mode == "Progressive Circuits":
+            self.append_items_from_data("Progressive Circuit Pass")
+                    
         # Racers
         racer_names = [*self.racers_pool]
         self.random.shuffle(racer_names)

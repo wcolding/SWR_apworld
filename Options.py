@@ -7,22 +7,18 @@ class ProgressiveParts(Toggle):
 class NoTractionUpgrades(Toggle):
     """Removes Traction parts from the item pool"""
     display_name = "No Traction Upgrades"
-
-class ProgressiveCircuits(Toggle):
-    """Access to circuits will be in the regular order
-    Only applies when using Circuit Pass or Circuit Pass Invitational unlock modes"""
-    display_name = "Progressive Circuits"
     
 class CourseUnlockMode(Choice):
     """Sets how courses should unlock
-    Circuit Pass: Semi-pro and Galactic Circuits are accessed by items called 'circuit passes'. Courses unlock normally as you beat the previous course
-    Circuit Pass Invitational: Same as Circuit Pass but with the addition of the Invitational Circuit
-    Shuffle: Course unlocks are shuffled
+    Full Shuffle: All course unlocks are fully shuffled. Recommended for moderate to longer games and asyncs.
+    Circuits: Access to entire circuits is shuffled. Recommended for a shorter game.
+    Progressive Circuits: Access to entire circuits is shuffled, and you will always unlock them in order. Recommended for a shorter game.
     """
     display_name = "Course Unlock Mode"
-    option_circuit_pass = 0
-    option_circuit_pass_invitational = 1
-    option_shuffle = 2
+    option_full_shuffle = 0
+    option_circuits = 1
+    option_progressive_circuits = 2
+    default = 0
 
 class RandomizeStartingRacers(DefaultOnToggle):
     """Changes which racers are available to use at the beginning"""
@@ -133,7 +129,6 @@ class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
     no_traction_upgrades: NoTractionUpgrades
     course_unlock_mode: CourseUnlockMode
-    progressive_circuits: ProgressiveCircuits
     randomize_starting_racers: RandomizeStartingRacers
     starting_racers_count: StartingRacersCount
     starting_racers_plando: StartingRacersPlando
