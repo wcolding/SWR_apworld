@@ -96,7 +96,12 @@ class SWRWorld(World):
             
             for i in range(0, rand_range):
                 selected_racer = racer_names.pop()
-                self.starting_racers_flag |= self.racers_pool.pop(selected_racer).bitflag        
+                self.starting_racers_flag |= self.racers_pool.pop(selected_racer).bitflag  
+
+        goal_mode = self.options.goal_mode.get_option_name(self.options.goal_mode.value)
+        if goal_mode == "Racer Hunt":
+            for racer in [*self.racers_pool]:
+                self.racers_pool[racer].classification = ItemClassification.progression
 
     def randomize_courses(self):
         self.randomized_courses = dict()
