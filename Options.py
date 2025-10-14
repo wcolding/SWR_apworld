@@ -50,7 +50,9 @@ class StartingRacersPlando(OptionSet):
     display_name = "Starting Racers Plando"
 
 class MaxAdditionalRacers(Range):
-    """How many racers can be added to the pool (excluding the starting racers)"""
+    """How many racers can be added to the pool (excluding the starting racers)
+    This option is ignored if Goal Mode is set to 'Racer Hunt'
+    """
     display_name = "Max Additional Racers"
     range_start = 0
     range_end = 22
