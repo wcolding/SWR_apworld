@@ -174,6 +174,7 @@ class SWRWorld(World):
             "Courses": self.randomized_courses,
             "ShopCosts": self.shop_costs_data,
             "ProgressiveParts": self.options.progressive_parts.value,
+            "GoalMode": self.options.goal_mode.value,
             "CourseUnlockMode": self.options.course_unlock_mode.value,
             "DisablePartDamage": self.options.disable_part_damage.value,
             "AIScaling": self.options.ai_scaling.value,
@@ -186,7 +187,8 @@ class SWRWorld(World):
         }
     
     def create_regions(self) -> None:
-        return create_swr_regions(self)
+        nonstarting_racers = get_nonstarter_racers(self.starting_racers_flag)
+        return create_swr_regions(self, nonstarting_racers)
 
     def create_item(self, name: str) -> Item:
         item_data = full_item_table[name]
@@ -246,7 +248,11 @@ class SWRWorld(World):
         # Racers
         racer_names = [*self.racers_pool]
         self.random.shuffle(racer_names)
-        extra_racers = min(self.options.max_additional_racers.value, len(racer_names))
+        goal_mode = self.options.goal_mode.get_option_name(self.options.goal_mode.value)
+        if goal_mode == "Racer Hunt":
+            extra_racers = len(racer_names)
+        else:
+            extra_racers = min(self.options.max_additional_racers.value, len(racer_names))
         for i in range(0, extra_racers):
             self.append_items_from_data(racer_names.pop())
 

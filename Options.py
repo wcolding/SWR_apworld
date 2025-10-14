@@ -8,6 +8,16 @@ class NoTractionUpgrades(Toggle):
     """Removes Traction parts from the item pool"""
     display_name = "No Traction Upgrades"
     
+class GoalMode(Choice):
+    """Sets the objective
+    Courses: Complete all of the courses to finish the game.
+    Racer Hunt: Collect all of the pod racers.
+    """
+    display_name = "Goal Mode"
+    option_courses = 0
+    option_racer_hunt = 1
+    default = 0
+
 class CourseUnlockMode(Choice):
     """Sets how courses should unlock
     Full Shuffle: All course unlocks are fully shuffled. Recommended for moderate to longer games and asyncs.
@@ -129,6 +139,7 @@ class CoursePlando(OptionDict):
 class SWROptions(PerGameCommonOptions):
     progressive_parts: ProgressiveParts
     no_traction_upgrades: NoTractionUpgrades
+    goal_mode: GoalMode
     course_unlock_mode: CourseUnlockMode
     randomize_starting_racers: RandomizeStartingRacers
     starting_racers_count: StartingRacersCount

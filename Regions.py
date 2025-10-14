@@ -4,11 +4,12 @@ from ..AutoWorld import World
 from .Locations import *
 from .Items import course_unlocks_item_table
 
-def create_swr_regions(world: World):
+def create_swr_regions(world: World, nonstarting_racers: list):
     menu_region = Region("Menu", world.player, world.multiworld)
     world.multiworld.regions.append(menu_region)
 
     create_region_with_rule(world, "Pit Droid Shop", list(pit_droid_shop_table.keys()), lambda state: True)
+    goal_mode = world.options.goal_mode.get_option_name(world.options.goal_mode.value)
     course_mode = world.options.course_unlock_mode.get_option_name(world.options.course_unlock_mode.value)
 
     if course_mode == "Full Shuffle":
@@ -30,11 +31,12 @@ def create_swr_regions(world: World):
         create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: has_enough_races_course_shuffle(state, world.player, 16))
 
         # Win Condition
-        world.multiworld.completion_condition[world.player] = \
-            lambda state: state.has("Amateur Course Unlock", world.player, 6) \
-            and state.has("Semi-Pro Course Unlock", world.player, 7) \
-            and state.has("Galactic Course Unlock", world.player, 7) \
-            and state.has("Invitational Course Unlock", world.player, 4)
+        if goal_mode == "Courses":
+            world.multiworld.completion_condition[world.player] = \
+                lambda state: state.has("Amateur Course Unlock", world.player, 6) \
+                and state.has("Semi-Pro Course Unlock", world.player, 7) \
+                and state.has("Galactic Course Unlock", world.player, 7) \
+                and state.has("Invitational Course Unlock", world.player, 4)
     else:
         amateur_locations = get_circuit_locations(world, AMATEUR_CIRCUIT)
         semipro_locations = get_circuit_locations(world, SEMIPRO_CIRCUIT)
@@ -64,10 +66,11 @@ def create_swr_regions(world: World):
             create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: has_enough_races(state, world.player, 16))
 
             # Win Condition
-            world.multiworld.completion_condition[world.player] = \
-                lambda state: state.has("Semi-Pro Circuit Pass", world.player) \
-                and state.has("Galactic Circuit Pass", world.player) \
-                and state.has("Invitational Circuit Pass", world.player) 
+            if goal_mode == "Courses":
+                world.multiworld.completion_condition[world.player] = \
+                    lambda state: state.has("Semi-Pro Circuit Pass", world.player) \
+                    and state.has("Galactic Circuit Pass", world.player) \
+                    and state.has("Invitational Circuit Pass", world.player) 
 
         if course_mode == "Progressive Circuits":
             # Circuit unlocks
@@ -83,7 +86,11 @@ def create_swr_regions(world: World):
             create_region_with_rule(world, "Watto's Shop 16 Races", list(watto_16_races.keys()), lambda state: state.has("Progressive Circuit Pass", world.player, 2))
 
             # Win Condition
-            world.multiworld.completion_condition[world.player] = lambda state: state.has("Progressive Circuit Pass", world.player, 3)
+            if goal_mode == "Courses":
+                world.multiworld.completion_condition[world.player] = lambda state: state.has("Progressive Circuit Pass", world.player, 3)
+    
+    if goal_mode == "Racer Hunt":
+        world.multiworld.completion_condition[world.player] = lambda state: state.has_all(nonstarting_racers, world.player) 
 
 def add_location_with_rule(world: World, region: Region, name: str, rule: CollectionRule) -> SWRLocation:
     new_loc = SWRLocation(world.player, name, full_location_table[name].id, region)
