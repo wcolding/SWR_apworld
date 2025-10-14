@@ -158,10 +158,3 @@ def get_item_name_to_id():
     for item in full_item_table:
         item_name_to_id[item] = full_item_table[item].id
     return item_name_to_id
-
-def get_nonstarter_racers(starting_racers_flag):
-    nonstarters = []
-    for racer in [*racers_table]:
-        if (racers_table[racer].bitflag & starting_racers_flag) == 0:
-            nonstarters += racer
-    return nonstarters

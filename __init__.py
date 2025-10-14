@@ -187,8 +187,7 @@ class SWRWorld(World):
         }
     
     def create_regions(self) -> None:
-        nonstarting_racers = get_nonstarter_racers(self.starting_racers_flag)
-        return create_swr_regions(self, nonstarting_racers)
+        return create_swr_regions(self, [*self.racers_pool])
 
     def create_item(self, name: str) -> Item:
         item_data = full_item_table[name]
