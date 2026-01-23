@@ -85,15 +85,22 @@ def create_swr_regions(world: World):
             # Win Condition
             world.multiworld.completion_condition[world.player] = lambda state: state.has("Progressive Circuit Pass", world.player, 3)
 
-def add_location_with_rule(world: World, region: Region, name: str, rule: CollectionRule) -> SWRLocation:
+def add_location_with_rule(world: World, region: Region, name: str, rule: CollectionRule, item_name: str | None = None) -> SWRLocation:
     new_loc = SWRLocation(world.player, name, full_location_table[name].id, region)
+    if item_name:
+        new_loc.item = world.create_item(item_name)
     set_rule(new_loc, rule)
     region.locations.append(new_loc)
 
 def create_region_with_rule(world: World, name: str, location_names: list, rule: CollectionRule) -> Region:
     new_reg = Region(name, world.player, world.multiworld)
     for loc in location_names:
-        add_location_with_rule(world, new_reg, loc, rule)
+        if loc in course_unlocks_loc_table:
+            # Place vanilla item for course unlocks
+            vanilla_item = course_unlocks_loc_table[loc].vanilla_item
+            add_location_with_rule(world, new_reg, loc, rule, vanilla_item)
+        else:
+            add_location_with_rule(world, new_reg, loc, rule)
 
     world.multiworld.regions.append(new_reg)
 
@@ -166,7 +173,7 @@ def get_matching_racer_unlocks(circuit_courses: list) -> list:
 
 def get_circuit_locations(world: World, circuit: int) -> list:
     circuit_data = circuit_data_map[circuit]
-    locs = list(circuit_data.clears_table.keys())
+    locs = list(circuit_data.clears_table.keys()) + list(circuit_data.unlocks_table.keys())
 
     course_names = world.randomized_course_names[circuit_data.start:circuit_data.end]
     locs += get_matching_racer_unlocks(course_names)
