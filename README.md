@@ -33,8 +33,8 @@ On top of this, you can set the `Additional AI Multiplier`. A value of 1000 sets
 ### What do I need to play?
 You will need the following to play this randomizer:
 * An [Archipelago installation](https://github.com/ArchipelagoMW/Archipelago/releases) 
-* The latest game client and apworld [More info](https://github.com/wcolding/SWR_AP_Client)
+* The latest game client and apworld [release](https://github.com/wcolding/SWR_AP_Client/releases)
 * The Windows version of the game. Development has been conducted with the Steam and GOG versions.
 
 ### How do I use this?
-You can download the latest release on this repository and double click the .apworld to install it to your Archipelago's `custom_worlds` directory. You can then use the Options Creator (included in Archipelago 0.6.5+) to generate a yaml or run the launcher and select `Generate Template Settings` to create a template yaml file in your `Players/Templates` directory. You can edit this to your liking, and then place it into the `Players` folder. Then you can generate a game, run a server, and connect the client.
+You can download the latest release on [the client repository](https://github.com/wcolding/SWR_AP_Client/releases) and double click the .apworld to install it to your Archipelago's `custom_worlds` directory. You can then use the Options Creator (included in Archipelago 0.6.5+) to generate a yaml or run the launcher and select `Generate Template Settings` to create a template yaml file in your `Players/Templates` directory. You can edit this to your liking, and then place it into the `Players` folder. Then you can generate a game, run a server, and connect the client.
