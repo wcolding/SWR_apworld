@@ -88,7 +88,8 @@ def create_swr_regions(world: World):
 def add_location_with_rule(world: World, region: Region, name: str, rule: CollectionRule, item_name: str | None = None) -> SWRLocation:
     new_loc = SWRLocation(world.player, name, full_location_table[name].id, region)
     if item_name:
-        new_loc.item = world.create_item(item_name)
+        item = world.create_item(item_name)
+        new_loc.place_locked_item(item)
     set_rule(new_loc, rule)
     region.locations.append(new_loc)
 
