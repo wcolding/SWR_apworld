@@ -124,18 +124,18 @@ def create_circuit_region_with_course_shuffle(world: World, name: str, circuit: 
 
         # Clears / Money reward
         clear_name = [*circuit_data.clears_table][i]
-        add_location_with_rule(world, new_reg, clear_name, lambda state: state.has(required_item_name, world.player, required_count))
+        add_location_with_rule(world, new_reg, clear_name, lambda state, count=required_count: state.has(required_item_name, world.player, count))
 
         # Course Unlocks
         if i < len([*circuit_data.unlocks_table]):
             unlock_name = [*circuit_data.unlocks_table][i]
-            add_location_with_rule(world, new_reg, unlock_name, lambda state: state.has(required_item_name, world.player, required_count))
+            add_location_with_rule(world, new_reg, unlock_name, lambda state, count=required_count: state.has(required_item_name, world.player, count))
 
         # Racer Unlocks
         course_name =  world.randomized_course_names[circuit_data.start + i]
         for loc in [*racer_unlocks_table]:
             if loc.removeprefix("Racer Unlock - ") in course_name:
-                add_location_with_rule(world, new_reg, loc, lambda state: state.has(required_item_name, world.player, required_count)) 
+                add_location_with_rule(world, new_reg, loc, lambda state, count=required_count: state.has(required_item_name, world.player, count)) 
 
     world.multiworld.regions.append(new_reg)
 
